@@ -37,7 +37,6 @@ const LogIn = () => {
               onChange={onInputChange}
             />
           </InputWrapper>
-          {/* IMPORTANT Set random data on login click */}
           <ButtonWrapper>
             <Button text="Log in" disabled={disabled} onClick={onButtonClick} />
           </ButtonWrapper>
