@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import GameContainer from "../../components/gameContainer"
 import Word from "../../components/word"
 import MainContainer from "../../components/mainContainer"
@@ -12,29 +12,56 @@ const Game = () => {
   const objData = data.all_words.map(word =>
     Object.assign({ word: word, clicked: false }, data.all_words[word])
   )
-
+  const multiplying = 2
   const [clickedWords, setClickedWords] = useState(objData)
   const [error, setError] = useState(false)
   const [gameView, setGameView] = useState(true)
+  const [clickedCorrect, setClickedCorrect] = useState(0)
+  const [clickedNotCorrect, setClickedNotCorrect] = useState(0)
+  const [notClickedCorrect, setNotClickedCorrect] = useState(0)
+  // eslint-disable-next-line no-unused-vars
+  const [countPoints, setCountPoints] = useState(0)
 
   const onWordCliked = word => {
     setClickedWords(
-      clickedWords.map(item => {
-        return item.word === word
+      clickedWords.map(i => {
+        return i.word === word
           ? {
-              ...item,
-              clicked: !item.clicked,
+              ...i,
+              clicked: !i.clicked,
             }
-          : item
+          : i
       })
     )
     setError("")
   }
   const onButtonClick = () => {
-    return clickedWords.every(item => item.clicked === false)
+    clickedWords.every(i => !i.clicked)
       ? setError("Click at least one word :)")
       : setGameView(false)
+
+    setClickedCorrect(
+      clickedWords
+        ?.map(x => data.good_words?.filter(y => y === x.word && x.clicked))
+        ?.flat().length
+    )
+    setClickedNotCorrect(
+      clickedWords
+        ?.map(x => data.good_words?.every(y => y !== x.word && x.clicked))
+        ?.filter(i => i).length
+    )
+    setNotClickedCorrect(
+      clickedWords
+        ?.map(x => data.good_words?.some(y => y === x.word && !x.clicked))
+        ?.filter(i => i).length
+    )
   }
+
+  useEffect(() => {
+    setCountPoints(
+      multiplying * clickedCorrect - (clickedNotCorrect + notClickedCorrect)
+    )
+  }, [clickedWords, clickedCorrect, clickedNotCorrect, notClickedCorrect])
 
   return (
     <>

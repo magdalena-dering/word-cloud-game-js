@@ -18,7 +18,7 @@ General features:
 To run this project, install it locally using npm:
 
 ```
-$ cd ../word-cloud-game
+$ cd ../word-cloud-game-js
 $ npm install
 $ npm start
 ```
