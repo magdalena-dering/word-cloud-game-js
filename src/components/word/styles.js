@@ -5,7 +5,7 @@ export const StyledText = styled.p`
   font-size: 15px;
   padding: 0.5rem;
   margin: 2rem;
-   ${props =>  
+  ${props =>  
     props.gameView ? `cursor: pointer` : `cursor: default` 
      };   
   ${props =>

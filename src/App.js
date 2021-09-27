@@ -1,30 +1,33 @@
 import { useState } from "react"
 import GlobalStyle from "./theme/global"
-import dataJSON from "./data.json"
 import { PointsContext } from './context/pointsContext'
 import { ClickedWordsContext } from './context/clickedWordsContext.'
 import { UserContext } from './context/userContext'
 import AppRouter from './components/router'
-
-export const data = dataJSON[(dataJSON.length * Math.random()) | 0]
-export const modifiedObj = data.all_words.map(word =>
-    Object.assign({ word: word, clicked: false }, data.all_words[word])
-  )
+import { DataContext } from './context/dataContext'
+import { MaxPointsContext } from './context/maxPointsContext'
 
 const App = () => {
+  const [dataContext, setDataContext] = useState([])
   const [userName, setUserName] = useState("")
-  const [clickedWords, setClickedWords] = useState(modifiedObj)
+  const [clickedWords, setClickedWords] = useState([]) 
   const [points, setPoints] = useState(0)
+  const [maxPoints, setMaxPoints] = useState(false)
 
-  return (   
+  return (
+    <DataContext.Provider value={{ dataContext, setDataContext }}> 
     <UserContext.Provider value={{ userName, setUserName }}>
     <ClickedWordsContext.Provider value={{ clickedWords, setClickedWords }}>
     <PointsContext.Provider value={{ points, setPoints }}>
+    <MaxPointsContext.Provider value={{ maxPoints, setMaxPoints }}>
       <GlobalStyle />
       <AppRouter/>
+    </MaxPointsContext.Provider>
     </PointsContext.Provider>
     </ClickedWordsContext.Provider>
     </UserContext.Provider>
+    </DataContext.Provider>
+
   )
 }
 

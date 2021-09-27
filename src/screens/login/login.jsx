@@ -1,5 +1,7 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { useHistory } from "react-router"
+import axios from "axios"
+import { DataContext } from "../../context/dataContext"
 import { UserContext } from "../../context/userContext"
 import { Wrapper, ButtonWrapper, InputWrapper } from "./styles"
 import MainContainer from "../../components/mainContainer"
@@ -11,8 +13,17 @@ const LogIn = () => {
   const [nickname, setNickName] = useState("")
   const [disabled, setDisabled] = useState(false)
   const [error, setError] = useState("")
-  const history = useHistory()
+  const { setDataContext } = useContext(DataContext)
   const { setUserName } = useContext(UserContext)
+  const history = useHistory()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios("data.json")
+      setDataContext(result.data[(result.data?.length * Math.random()) | 0])
+    }
+    fetchData().catch(e => console.log(e))
+  }, [setDataContext])
 
   const onInputChange = e => {
     setNickName(e?.target.value)

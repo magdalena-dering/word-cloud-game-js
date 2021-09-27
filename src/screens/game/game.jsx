@@ -1,8 +1,9 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { useHistory } from "react-router"
+import { DataContext } from "../../context/dataContext"
 import { ClickedWordsContext } from "../../context/clickedWordsContext."
 import { PointsContext } from "../../context/pointsContext"
-import { data } from "../../App"
+import { MaxPointsContext } from "../../context/maxPointsContext"
 import { GameWrapper, ButtonWrapper } from "./styles"
 import GameContainer from "../../components/gameContainer"
 import Word from "../../components/word"
@@ -10,6 +11,7 @@ import MainContainer from "../../components/mainContainer"
 import Header from "../../components/header"
 import Button from "../../components/button"
 import Error from "../../components/error"
+import Loader from "../../components/loader"
 
 const Game = () => {
   const multiplying = 2
@@ -18,11 +20,24 @@ const Game = () => {
   const [clickedNotCorrect, setClickedNotCorrect] = useState(0)
   const [notClickedCorrect, setNotClickedCorrect] = useState(0)
   const [gameView, setGameView] = useState(true)
+  const { dataContext } = useContext(DataContext)
   const { clickedWords } = useContext(ClickedWordsContext)
   const { setClickedWords } = useContext(ClickedWordsContext)
   const { setPoints } = useContext(PointsContext)
-  const { question, good_words } = data
+  const { setMaxPoints } = useContext(MaxPointsContext)
+  const { question, good_words } = dataContext
   const history = useHistory()
+
+  useEffect(() => {
+    setClickedWords(
+      dataContext.all_words.map(word =>
+        Object.assign(
+          { word: word, clicked: false },
+          dataContext.all_words[word]
+        )
+      )
+    )
+  }, [dataContext, setClickedWords])
 
   const onWordCliked = word => {
     setClickedWords(
@@ -65,9 +80,14 @@ const Game = () => {
     setPoints(
       multiplying * clickedCorrect - (clickedNotCorrect + notClickedCorrect)
     )
+    setMaxPoints(
+      clickedCorrect === good_words.length &&
+        !clickedNotCorrect &&
+        !notClickedCorrect
+    )
   }
 
-  return (
+  return dataContext ? (
     <>
       <Header
         link
@@ -100,6 +120,8 @@ const Game = () => {
         </ButtonWrapper>
       </MainContainer>
     </>
+  ) : (
+    <Loader />
   )
 }
 

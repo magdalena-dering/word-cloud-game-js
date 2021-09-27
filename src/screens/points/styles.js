@@ -11,6 +11,9 @@ export const StyledLink = styled(Link)`
 export const Paragraph = styled.p`
   color: #008080;
   font-size: 18px;
+  ${props =>  
+    props.bold && `font-weight: bold;`
+   }; 
   text-align: center;
   padding: 0.5rem 0;
 `

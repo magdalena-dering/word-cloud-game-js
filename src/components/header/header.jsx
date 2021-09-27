@@ -2,7 +2,6 @@ import React, { useContext } from "react"
 import { UserContext } from "../../context/userContext"
 import { ClickedWordsContext } from "../../context/clickedWordsContext."
 import { PointsContext } from "../../context/pointsContext"
-import { modifiedObj } from "../../App"
 import { StyledHeader, Paragraph } from "./styles"
 import Link from "../link"
 import Title from "../title"
@@ -14,7 +13,7 @@ const Header = ({ link, linkTo, linkText, title, user }) => {
 
   const onLogOutClick = () => {
     setPoints(0)
-    setClickedWords(modifiedObj)
+    setClickedWords([])
   }
 
   return (
