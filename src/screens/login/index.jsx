@@ -1,16 +1,18 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { useHistory } from "react-router"
+import { UserContext } from "../../context/userContext"
 import MainContainer from "../../components/mainContainer"
 import Input from "../../components/input"
 import Button from "../../components/button"
 import { Wrapper, ButtonWrapper, InputWrapper } from "./styles"
 import Header from "../../components/header"
-import { useHistory } from "react-router"
 
 const LogIn = () => {
   const [nickname, setNickName] = useState("")
   const [disabled, setDisabled] = useState(false)
   const [error, setError] = useState("")
   const history = useHistory()
+  const { setUserName } = useContext(UserContext)
 
   const onInputChange = e => {
     setNickName(e?.target.value)
@@ -18,10 +20,11 @@ const LogIn = () => {
     setError("")
   }
 
-  const onButtonClick = () =>
-    !Boolean(nickname)
+  const onButtonClick = () => {
+    return !Boolean(nickname)
       ? (setDisabled(true), setError("* This field is required"))
-      : history.push("/game")
+      : (setUserName(nickname), history.push("/game"))
+  }
 
   return (
     <>

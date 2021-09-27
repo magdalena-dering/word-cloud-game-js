@@ -18,4 +18,3 @@ export const ButtonWrapper = styled.div`
   justify-content: center;
   margin: 2rem 0;
 `
-

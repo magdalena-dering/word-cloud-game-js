@@ -1,3 +1,4 @@
+import React from "react"
 import { StyledText } from "./styles"
 
 const Word = ({ gameView, clickedWords, correctWords, onWordCliked }) => {

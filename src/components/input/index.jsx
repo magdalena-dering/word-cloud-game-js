@@ -1,3 +1,4 @@
+import React from "react"
 import { StyledInput, StyledLabel } from "./styles"
 import Error from "../error"
 

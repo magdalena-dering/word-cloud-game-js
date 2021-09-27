@@ -1,26 +1,28 @@
-import { useEffect, useState } from "react"
+import { useState, useContext } from "react"
+import { useHistory } from "react-router"
+import { ClickedWordsContext } from "../../context/clickedWordsContext."
+import { PointsContext } from "../../context/pointsContext"
+import { data } from "../../App"
 import GameContainer from "../../components/gameContainer"
 import Word from "../../components/word"
 import MainContainer from "../../components/mainContainer"
 import Header from "../../components/header"
 import { GameWrapper, ButtonWrapper } from "./styles"
-import { data } from "../../App"
 import Button from "../../components/button"
 import Error from "../../components/error"
 
 const Game = () => {
-  const objData = data.all_words.map(word =>
-    Object.assign({ word: word, clicked: false }, data.all_words[word])
-  )
   const multiplying = 2
-  const [clickedWords, setClickedWords] = useState(objData)
+
   const [error, setError] = useState(false)
-  const [gameView, setGameView] = useState(true)
   const [clickedCorrect, setClickedCorrect] = useState(0)
   const [clickedNotCorrect, setClickedNotCorrect] = useState(0)
   const [notClickedCorrect, setNotClickedCorrect] = useState(0)
-  // eslint-disable-next-line no-unused-vars
-  const [countPoints, setCountPoints] = useState(0)
+  const [gameView, setGameView] = useState(true)
+  const { clickedWords } = useContext(ClickedWordsContext)
+  const { setClickedWords } = useContext(ClickedWordsContext)
+  const { setPoints } = useContext(PointsContext)
+  const history = useHistory()
 
   const onWordCliked = word => {
     setClickedWords(
@@ -35,7 +37,8 @@ const Game = () => {
     )
     setError("")
   }
-  const onButtonClick = () => {
+
+  const onCheckButtonClick = () => {
     clickedWords.every(i => !i.clicked)
       ? setError("Click at least one word :)")
       : setGameView(false)
@@ -43,7 +46,7 @@ const Game = () => {
     setClickedCorrect(
       clickedWords
         ?.map(x => data.good_words?.filter(y => y === x.word && x.clicked))
-        ?.flat().length
+        .flat().length
     )
     setClickedNotCorrect(
       clickedWords
@@ -57,27 +60,23 @@ const Game = () => {
     )
   }
 
-  useEffect(() => {
-    setCountPoints(
+  const onFinishButtonClick = () => {
+    history.push("/points")
+    setPoints(
       multiplying * clickedCorrect - (clickedNotCorrect + notClickedCorrect)
     )
-  }, [clickedWords, clickedCorrect, clickedNotCorrect, notClickedCorrect])
+  }
 
   return (
     <>
-      <Header
-        link
-        linkTo="/"
-        linkText="Log out"
-        title={gameView ? data.question : "Result"}
-      />
+      <Header link linkTo="/" linkText="Log out" title={data.question} user />
       <MainContainer>
         <GameWrapper>
           <GameContainer>
             {gameView ? (
               <Word
                 clickedWords={clickedWords}
-                gameView={gameView}
+                gameView
                 onWordCliked={onWordCliked}
               />
             ) : (
@@ -90,10 +89,11 @@ const Game = () => {
         </GameWrapper>
         <Error error={error} />
         <ButtonWrapper>
-          <Button
-            text={gameView ? "Check" : "Finish game"}
-            onClick={onButtonClick}
-          />
+          {gameView ? (
+            <Button text="Check" onClick={onCheckButtonClick} />
+          ) : (
+            <Button text="Finish game" onClick={onFinishButtonClick} />
+          )}
         </ButtonWrapper>
       </MainContainer>
     </>
