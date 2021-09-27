@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { UserContext } from "../../context/userContext"
 import { PointsContext } from "../../context/pointsContext"
+import { Paragraph, PointsContainer } from "./styles"
 import MainContainer from "../../components/mainContainer"
 import Header from "../../components/header"
-import { Paragraph, PointsContainer } from "./styles"
 
 const Points = () => {
   const { userName } = useContext(UserContext)

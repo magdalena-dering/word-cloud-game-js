@@ -1,10 +1,10 @@
 import { useState, useContext } from "react"
 import { useHistory } from "react-router"
 import { UserContext } from "../../context/userContext"
+import { Wrapper, ButtonWrapper, InputWrapper } from "./styles"
 import MainContainer from "../../components/mainContainer"
 import Input from "../../components/input"
 import Button from "../../components/button"
-import { Wrapper, ButtonWrapper, InputWrapper } from "./styles"
 import Header from "../../components/header"
 
 const LogIn = () => {
@@ -28,7 +28,7 @@ const LogIn = () => {
 
   return (
     <>
-      <Header title="Log in to Word Cloud Game" />
+      <Header title="Word Cloud Game" />
       <MainContainer>
         <Wrapper>
           <InputWrapper>
