@@ -1,7 +1,10 @@
 import styled from "styled-components"
+import { palette } from '../../constants/palette'
+
+const { dimgray, darkslategray, lightseagreen, red } = palette
 
 export const StyledText = styled.p`
- color: #696969;
+ color: ${dimgray}
   font-size: 15px;
   padding: 0.5rem;
   margin: 2rem;
@@ -10,23 +13,23 @@ export const StyledText = styled.p`
      };   
   ${props =>
     props.active
-      && props.gameView &&`color: #20B2AA; font-weight: bold; box-shadow: rgb(32 178 170 / 11%) 0px 4px 6px, rgb(0 0 0 / 8%) 0px 1px 3px; border-radius: 2rem;` 
+      && props.gameView &&`color: ${lightseagreen}; font-weight: bold; box-shadow: rgb(32 178 170 / 11%) 0px 4px 6px, rgb(0 0 0 / 8%) 0px 1px 3px; border-radius: 2rem;` 
      };
   ${props =>
     props.clickedCorrect
-  && !props.gameView &&`background: #20B2AA; color: #fff; box-shadow: rgb(32 178 170 / 11%) 0px 4px 6px, rgb(0 0 0 / 8%) 0px 1px 3px; border-radius: 2rem;` 
+  && !props.gameView &&`background: ${lightseagreen}; color: #fff; box-shadow: rgb(32 178 170 / 11%) 0px 4px 6px, rgb(0 0 0 / 8%) 0px 1px 3px; border-radius: 2rem;` 
      }; 
   ${props =>
     props.clickedNotCorrect
-  && !props.gameView &&`background: #dc143c;; color: #fff; box-shadow: rgb(32 178 170 / 11%) 0px 4px 6px, rgb(0 0 0 / 8%) 0px 1px 3px; border-radius: 2rem;` 
+  && !props.gameView &&`background: ${red}; color: #fff; box-shadow: rgb(32 178 170 / 11%) 0px 4px 6px, rgb(0 0 0 / 8%) 0px 1px 3px; border-radius: 2rem;` 
      }; 
   ${props =>
     props.notClickedCorrect
-  && !props.gameView &&`background: #20B2AA; color: #fff; box-shadow: rgb(32 178 170 / 11%) 0px 4px 6px, rgb(0 0 0 / 8%) 0px 1px 3px; border-radius: 2rem; opacity: 0.5;` 
+  && !props.gameView &&`background: ${lightseagreen}; color: #fff; box-shadow: rgb(32 178 170 / 11%) 0px 4px 6px, rgb(0 0 0 / 8%) 0px 1px 3px; border-radius: 2rem; opacity: 0.5;` 
      }; 
   &:hover {
      ${props =>  
-    props.gameView && ` color: #2F4F4F;` 
+    props.gameView && ` color: ${darkslategray};` 
      };    
   }
   @media screen and (max-width: 600px) {

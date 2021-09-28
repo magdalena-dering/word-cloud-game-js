@@ -25,19 +25,16 @@ const Game = () => {
   const { setClickedWords } = useContext(ClickedWordsContext)
   const { setPoints } = useContext(PointsContext)
   const { setMaxPoints } = useContext(MaxPointsContext)
-  const { question, good_words } = dataContext
+  const { all_words, question, good_words } = dataContext
   const history = useHistory()
 
   useEffect(() => {
     setClickedWords(
-      dataContext.all_words.map(word =>
-        Object.assign(
-          { word: word, clicked: false },
-          dataContext.all_words[word]
-        )
+      all_words.map(word =>
+        Object.assign({ word: word, clicked: false }, all_words[word])
       )
     )
-  }, [dataContext, setClickedWords])
+  }, [all_words, setClickedWords])
 
   const onWordCliked = word => {
     setClickedWords(
@@ -80,11 +77,7 @@ const Game = () => {
     setPoints(
       multiplying * clickedCorrect - (clickedNotCorrect + notClickedCorrect)
     )
-    setMaxPoints(
-      clickedCorrect === good_words.length &&
-        !clickedNotCorrect &&
-        !notClickedCorrect
-    )
+    setMaxPoints(clickedCorrect === good_words.length && !clickedNotCorrect)
   }
 
   return dataContext ? (

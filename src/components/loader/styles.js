@@ -1,4 +1,7 @@
 import styled, { keyframes } from "styled-components";
+import { palette } from '../../constants/palette'
+
+const { teal } = palette;
 
 export const BounceAnimation = keyframes`
   0% { margin-bottom: 0; }
@@ -13,7 +16,7 @@ export const DotWrapper = styled.div`
   left: 50%;
 `;
 export const Dot = styled.div`
-  background-color: #008080;
+  background-color: ${teal};
   border-radius: 50%;
   width: 1rem;
   height: 1rem;

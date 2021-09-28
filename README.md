@@ -9,6 +9,7 @@ General features:
 ## What I use:
 
 - React.js (React Hooks)
+- Axios
 - Styled Components
 - Responsive design
 - Prettier code styling
