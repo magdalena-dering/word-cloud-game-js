@@ -36,7 +36,7 @@ const Game = () => {
     )
   }, [all_words, setClickedWords])
 
-  const onWordCliked = word => {
+  const onWordClick = word => {
     setClickedWords(
       clickedWords.map(i => {
         return i.word === word
@@ -96,7 +96,7 @@ const Game = () => {
               <Word
                 clickedWords={clickedWords}
                 gameView
-                onWordCliked={onWordCliked}
+                onWordClick={onWordClick}
               />
             ) : (
               <Word clickedWords={clickedWords} correctWords={good_words} />

@@ -1,7 +1,7 @@
 import React from "react"
 import { StyledText } from "./styles"
 
-const Word = ({ gameView, clickedWords, correctWords, onWordCliked }) => {
+const Word = ({ gameView, clickedWords, correctWords, onWordClick }) => {
   return (
     <>
       {clickedWords?.map((word, index) => (
@@ -18,7 +18,7 @@ const Word = ({ gameView, clickedWords, correctWords, onWordCliked }) => {
             item => item === word.word && !word.clicked
           )}
           key={index}
-          onClick={() => gameView && onWordCliked(word.word, index)}
+          onClick={() => gameView && onWordClick(word.word, index)}
         >
           {word.word}
         </StyledText>
