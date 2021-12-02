@@ -1,18 +1,18 @@
-import { useContext } from "react"
-import Confetti from "react-confetti"
-import useWindowSize from "../../utils/useWindowSize"
-import { UserContext } from "../../context/userContext"
-import { PointsContext } from "../../context/pointsContext"
-import { MaxPointsContext } from "../../context/maxPointsContext"
-import { Paragraph, PointsContainer } from "./styles"
-import MainContainer from "../../components/mainContainer"
-import Header from "../../components/header"
+import { useContext } from 'react';
+import Confetti from 'react-confetti';
+import useWindowSize from '../../utils/useWindowSize';
+import { UserContext } from '../../context/userProvider';
+import { PointsContext } from '../../context/pointsProvider';
+import { MaxPointsContext } from '../../context/maxPointsProvider';
+import { Paragraph, PointsContainer } from './styles';
+import MainContainer from '../../components/mainContainer';
+import Header from '../../components/header';
 
 const Points = () => {
-  const { userName } = useContext(UserContext)
-  const { points } = useContext(PointsContext)
-  const { maxPoints } = useContext(MaxPointsContext)
-  const { width, height } = useWindowSize()
+  const { userName } = useContext(UserContext);
+  const { points } = useContext(PointsContext);
+  const { maxPoints } = useContext(MaxPointsContext);
+  const { width, height } = useWindowSize();
 
   return (
     <>
@@ -30,12 +30,14 @@ const Points = () => {
           <Paragraph>User: {userName}</Paragraph>
           <Paragraph>Points: {points < 0 ? 0 : points}</Paragraph>
           {maxPoints && (
-            <Paragraph bold>Congrats, you get the MAX points!!!</Paragraph>
+            <Paragraph bold>
+              Congrats, you get the MAX points!!!
+            </Paragraph>
           )}
         </PointsContainer>
       </MainContainer>
     </>
-  )
-}
+  );
+};
 
-export default Points
+export default Points;

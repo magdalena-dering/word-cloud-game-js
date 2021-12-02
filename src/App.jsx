@@ -1,6 +1,6 @@
-import GlobalStyle from "./theme/global"
-import AppRouter from "./components/router"
-import Provider from "./provider"
+import GlobalStyle from './theme/global';
+import AppRouter from './components/router';
+import { Provider } from './provider';
 
 const App = () => {
   return (
@@ -8,7 +8,7 @@ const App = () => {
       <GlobalStyle />
       <AppRouter />
     </Provider>
-  )
-}
+  );
+};
 
-export default App
+export default App;

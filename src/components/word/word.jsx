@@ -6,6 +6,7 @@ const Word = ({ gameView, clickedWords, correctWords, onWordClick }) => {
     <>
       {clickedWords?.map((word, index) => (
         <StyledText
+          data-testid="word"
           active={word.clicked}
           gameView={gameView}
           clickedCorrect={correctWords?.some(
