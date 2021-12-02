@@ -2,6 +2,8 @@ import { fireEvent, screen, render } from '@testing-library/react';
 import { ProvidersWraper } from '../../../testUtils/renderContext';
 import LogIn from '../login';
 
+// TODO: check if validation is displayed on button click when input is empty 
+
 describe('render LogIn component', () => {
   it('render heading', () => {
     const { getByRole } = render(<LogIn />, {

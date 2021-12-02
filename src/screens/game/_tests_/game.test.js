@@ -1,14 +1,13 @@
-import {
-  waitFor,
-  screen,
-  render,
-  fireEvent,
-} from '@testing-library/react';
+import { waitFor, render, fireEvent } from '@testing-library/react';
 import { ProvidersWraper } from '../../../testUtils/renderContext';
 import Game from '../game';
 
-// TODO: disable button check when no word was clicked
-// TODO: check if className has change when word was clicked
+// TODO: disable button when no word was clicked (at least one word should be clicked)
+// TODO: show text validation when no word was clicked (at least one word should be clicked)
+// TODO: check if word has green background when the right word was clicked
+// TODO: check if word has opacity green background when the right word was not clicked
+// TODO: check if word has red background when the wrong word was clicked
+// TODO: check if content of button to "Finsh game" had been changed when at least one word was clicked
 
 describe('render Game component', () => {
   it('render header with user name and log out link', async () => {
@@ -45,8 +44,10 @@ describe('render Game component', () => {
     const { findAllByTestId } = render(<Game />, {
       wrapper: ProvidersWraper,
     });
-    const paragraph = findAllByTestId('word');
-    waitFor(() => expect(paragraph).toBeInTheDocument());
+    const paragraphs = await findAllByTestId('word');
+    paragraphs.forEach((paragraph) =>
+      expect(paragraph).toBeInTheDocument(),
+    );
   });
 
   it('render enable button', async () => {
@@ -56,5 +57,4 @@ describe('render Game component', () => {
     const button = await findByRole('button', { name: /check/i });
     expect(button).not.toBeDisabled();
   });
-  screen.debug();
 });
