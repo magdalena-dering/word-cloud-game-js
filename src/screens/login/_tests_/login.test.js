@@ -2,8 +2,6 @@ import { fireEvent, screen, render } from '@testing-library/react';
 import { ProvidersWraper } from '../../../testUtils/renderContext';
 import LogIn from '../login';
 
-// TODO: check if validation is displayed on button click when input is empty 
-
 describe('render LogIn component', () => {
   it('render heading', () => {
     const { getByRole } = render(<LogIn />, {
@@ -34,6 +32,24 @@ describe('render LogIn component', () => {
     const button = getByRole('button', { name: /log in/i });
     fireEvent.change(input, { target: { value: 'Nickname' } });
     expect(button).not.toBeDisabled();
+  });
+
+  it('display error when input is empty on button click', async () => {
+    const { getByPlaceholderText, getByRole, findByText } = render(
+      <LogIn />,
+      {
+        wrapper: ProvidersWraper,
+      },
+    );
+    const input = getByPlaceholderText(/nickname/i);
+    const button = getByRole('button', { name: /log in/i });
+    fireEvent.change(input, { target: { value: '' } });
+    fireEvent.click(button);
+    expect(
+      findByText(/'* This field is required/, {
+        exact: false,
+      }),
+    );
   });
   screen.debug();
 });
