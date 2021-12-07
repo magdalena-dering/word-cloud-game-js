@@ -1,30 +1,20 @@
-import { useState } from "react"
-import { PointsContext } from "./context/pointsContext"
-import { ClickedWordsContext } from "./context/clickedWordsContext."
-import { UserContext } from "./context/userContext"
-import { DataContext } from "./context/dataContext"
-import { MaxPointsContext } from "./context/maxPointsContext"
+import React from 'react';
+import { WordsProvider } from './context/wordsProvider';
+import { UserProvider } from './context/userProvider';
+import { MaxPointsProvider } from './context/maxPointsProvider';
+import { PointsProvider } from './context/pointsProvider';
+import { ClickedWordsProvider } from './context/clickedWordsContext';
 
-const Provider = ({ children }) => {
-  const [dataContext, setDataContext] = useState([])
-  const [userName, setUserName] = useState("")
-  const [clickedWords, setClickedWords] = useState([])
-  const [points, setPoints] = useState(0)
-  const [maxPoints, setMaxPoints] = useState(false)
-
+export const Provider = ({ children }) => {
   return (
-    <DataContext.Provider value={{ dataContext, setDataContext }}>
-      <UserContext.Provider value={{ userName, setUserName }}>
-        <ClickedWordsContext.Provider value={{ clickedWords, setClickedWords }}>
-          <PointsContext.Provider value={{ points, setPoints }}>
-            <MaxPointsContext.Provider value={{ maxPoints, setMaxPoints }}>
-              {children}
-            </MaxPointsContext.Provider>
-          </PointsContext.Provider>
-        </ClickedWordsContext.Provider>
-      </UserContext.Provider>
-    </DataContext.Provider>
-  )
-}
-
-export default Provider
+    <WordsProvider>
+      <UserProvider>
+        <ClickedWordsProvider>
+          <PointsProvider>
+            <MaxPointsProvider>{children}</MaxPointsProvider>
+          </PointsProvider>
+        </ClickedWordsProvider>
+      </UserProvider>
+    </WordsProvider>
+  );
+};
