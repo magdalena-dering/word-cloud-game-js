@@ -46,7 +46,7 @@ describe('render LogIn component', () => {
     fireEvent.change(input, { target: { value: '' } });
     fireEvent.click(button);
     expect(
-      findByText(/'* This field is required/, {
+      findByText(/'* This field is required'/, {
         exact: false,
       }),
     );

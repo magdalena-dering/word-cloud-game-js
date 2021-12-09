@@ -1,13 +1,17 @@
 import { waitFor, render, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import 'jest-styled-components';
 import { ProvidersWraper } from '../../../testUtils/renderContext';
 import Game from '../game';
+import { palette } from '../../../constants/palette';
 
-// TODO: disable button when no word was clicked (at least one word should be clicked)
-// TODO: show text validation when no word was clicked (at least one word should be clicked)
+const { dimgray } = palette;
+// TODO: deafult words color should be dimgray
+// TODO: disable button and display error when no word was clicked - DONE
 // TODO: check if word has green background when the right word was clicked
 // TODO: check if word has opacity green background when the right word was not clicked
 // TODO: check if word has red background when the wrong word was clicked
-// TODO: check if content of button to "Finsh game" had been changed when at least one word was clicked
+// TODO: change content of button to "Finsh game" when at least one word was clicked - DONE
 
 describe('render Game component', () => {
   it('render header with user name and log out link', async () => {
@@ -56,5 +60,50 @@ describe('render Game component', () => {
     });
     const button = await findByRole('button', { name: /check/i });
     expect(button).not.toBeDisabled();
+  });
+
+  it('deafult words color should be dimgray', async () => {
+    const { findAllByTestId } = render(<Game />, {
+      wrapper: ProvidersWraper,
+    });
+    const paragraphs = await findAllByTestId('word');
+    paragraphs.forEach((paragraph) =>
+      expect(paragraph).toHaveStyleRule('color', `${dimgray}`),
+    );
+  });
+
+  it('disable button and display error when no word was clicked', async () => {
+    const { findAllByTestId, findByRole, findByText } = render(
+      <Game />,
+      {
+        wrapper: ProvidersWraper,
+      },
+    );
+    const paragraphs = await findAllByTestId('word');
+    const button = await findByRole('button', { name: /check/i });
+
+    // dimgray is the deafult color
+    paragraphs.forEach((paragraph) => {
+      expect(paragraph).toHaveStyleRule('color', `${dimgray}`);
+    });
+    fireEvent.click(button);
+    expect(button).toBeDisabled();
+    expect(findByText('Click at least one word :)'));
+  });
+
+  it('change content of button to "Finsh game" when at least one word was clicked', async () => {
+    const { findAllByTestId, findByRole } = render(<Game />, {
+      wrapper: ProvidersWraper,
+    });
+    const paragraphs = await findAllByTestId('word');
+    const button = await findByRole('button', { name: /check/i });
+
+    // dimgray is the deafult color
+    paragraphs.forEach((paragraph) => {
+      fireEvent.click(paragraph);
+      expect(paragraph).not.toHaveStyleRule('color', `${dimgray}`);
+    });
+    fireEvent.click(button);
+    expect(await findByRole('button', { name: /finish game/i }));
   });
 });
