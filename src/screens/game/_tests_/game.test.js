@@ -6,7 +6,7 @@ import Game from '../game';
 import { palette } from '../../../constants/palette';
 
 const { dimgray } = palette;
-// TODO: deafult words color should be dimgray
+// TODO: deafult words color should be dimgray - DONE
 // TODO: disable button and display error when no word was clicked - DONE
 // TODO: check if word has green background when the right word was clicked
 // TODO: check if word has opacity green background when the right word was not clicked
