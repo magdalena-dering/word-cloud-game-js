@@ -1,5 +1,4 @@
 import { waitFor, render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import 'jest-styled-components';
 import { ProvidersWraper } from '../../../testUtils/renderContext';
 import Game from '../game';
