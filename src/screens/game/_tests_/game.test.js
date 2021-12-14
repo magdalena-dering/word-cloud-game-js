@@ -1,14 +1,34 @@
-import {
-  waitFor,
-  screen,
-  render,
-  fireEvent,
-} from '@testing-library/react';
+import { waitFor, render, fireEvent } from '@testing-library/react';
+import 'jest-styled-components';
 import { ProvidersWraper } from '../../../testUtils/renderContext';
 import Game from '../game';
+import Word from '../../../components/word';
+import { palette } from '../../../constants/palette';
 
-// TODO: disable button check when no word was clicked
-// TODO: check if className has change when word was clicked
+const { dimgray, lightseagreen, red } = palette;
+
+// TODO: deafult words color should be dimgray - DONE
+// TODO: disable button and display error when no word was clicked - DONE
+// TODO: check if word has green background when the right word was clicked - DONE
+// TODO: check if word has opacity green background when the right word was not clicked - DONE
+// TODO: check if word has red background when the wrong word was clicked - DONE
+// TODO: change content of button to "Finsh game" when at least one word was clicked - DONE
+
+const mockResponse = {
+  question: 'select vehicles',
+  all_words: [
+    'belief',
+    'wire',
+    'car',
+    'bus',
+    'star',
+    'river',
+    'hat',
+    'skirt',
+    'train',
+  ],
+  good_words: ['car', 'bus', 'train'],
+};
 
 describe('render Game component', () => {
   it('render header with user name and log out link', async () => {
@@ -45,8 +65,10 @@ describe('render Game component', () => {
     const { findAllByTestId } = render(<Game />, {
       wrapper: ProvidersWraper,
     });
-    const paragraph = findAllByTestId('word');
-    waitFor(() => expect(paragraph).toBeInTheDocument());
+    const paragraphs = await findAllByTestId('word');
+    paragraphs.forEach((paragraph) =>
+      expect(paragraph).toBeInTheDocument(),
+    );
   });
 
   it('render enable button', async () => {
@@ -56,5 +78,110 @@ describe('render Game component', () => {
     const button = await findByRole('button', { name: /check/i });
     expect(button).not.toBeDisabled();
   });
-  screen.debug();
+
+  it('deafult words color should be dimgray', async () => {
+    const { findAllByTestId } = render(<Game />, {
+      wrapper: ProvidersWraper,
+    });
+    const paragraphs = await findAllByTestId('word');
+    paragraphs.forEach((paragraph) =>
+      expect(paragraph).toHaveStyleRule('color', `${dimgray}`),
+    );
+  });
+
+  it('disable button and display error when no word was clicked', async () => {
+    const { findAllByTestId, findByRole, findByText } = render(
+      <Game />,
+      {
+        wrapper: ProvidersWraper,
+      },
+    );
+    const paragraphs = await findAllByTestId('word');
+    const button = await findByRole('button', { name: /check/i });
+
+    // dimgray is the deafult color
+    paragraphs.forEach((paragraph) => {
+      expect(paragraph).toHaveStyleRule('color', `${dimgray}`);
+    });
+    fireEvent.click(button);
+    expect(button).toBeDisabled();
+    expect(findByText('Click at least one word :)'));
+  });
+
+  it('change content of button to "Finsh game" when at least one word was clicked', async () => {
+    const { findAllByTestId, findByRole } = render(<Game />, {
+      wrapper: ProvidersWraper,
+    });
+    const paragraphs = await findAllByTestId('word');
+    const button = await findByRole('button', { name: /check/i });
+
+    // dimgray is the deafult color
+    paragraphs.forEach((paragraph) => {
+      fireEvent.click(paragraph);
+      expect(paragraph).not.toHaveStyleRule('color', `${dimgray}`);
+    });
+    fireEvent.click(button);
+    expect(await findByRole('button', { name: /finish game/i }));
+  });
+
+  it('change background to green when the correct word was clicked', () => {
+    const mockClickedWords = [
+      { word: 'train', clicked: true },
+      { word: 'bus', clicked: true },
+      { word: 'car', clicked: true },
+    ];
+    const wrapper = render(
+      <Word
+        correctWords={mockResponse.good_words}
+        clickedWords={mockClickedWords}
+      />,
+
+      {
+        wrapper: ProvidersWraper,
+      },
+    );
+    expect(wrapper.getByText('train')).toHaveStyle(
+      `background: ${lightseagreen};`,
+    );
+  });
+
+  it('change background to red when the wrong word was clicked', () => {
+    const mockClickedWords = [
+      { word: 'red', clicked: true },
+      { word: 'sofa', clicked: true },
+      { word: 'cabin', clicked: true },
+    ];
+    const wrapper = render(
+      <Word
+        correctWords={mockResponse.good_words}
+        clickedWords={mockClickedWords}
+      />,
+
+      {
+        wrapper: ProvidersWraper,
+      },
+    );
+    expect(wrapper.getByText('sofa')).toHaveStyle(
+      `background: ${red};`,
+    );
+  });
+
+  it('change background to "opacity: 0.5" when the correct word was not clicked', () => {
+    const mockClickedWords = [
+      { word: 'train', clicked: false },
+      { word: 'bus', clicked: false },
+      { word: 'car', clicked: false },
+    ];
+    const wrapper = render(
+      <Word
+        correctWords={mockResponse.good_words}
+        clickedWords={mockClickedWords}
+      />,
+
+      {
+        wrapper: ProvidersWraper,
+      },
+    );
+    expect(wrapper.getByText('train')).toHaveStyle('opacity: 0.5;');
+  });
 });
