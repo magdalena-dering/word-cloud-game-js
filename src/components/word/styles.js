@@ -4,7 +4,7 @@ import { palette } from '../../constants/palette'
 const { dimgray, darkslategray, lightseagreen, red } = palette
 
 export const StyledText = styled.p`
- color: ${dimgray};
+ color: ${dimgray}
   font-size: 15px;
   padding: 0.5rem;
   margin: 2rem;

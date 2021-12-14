@@ -20,7 +20,6 @@ const Game = () => {
   const [clickedNotCorrect, setClickedNotCorrect] = useState(0);
   const [notClickedCorrect, setNotClickedCorrect] = useState(0);
   const [gameView, setGameView] = useState(true);
-  const [disabled, setDisabled] = useState(false);
   const { words } = useContext(WordsContext);
   const { clickedWords } = useContext(ClickedWordsContext);
   const { setClickedWords } = useContext(ClickedWordsContext);
@@ -54,17 +53,12 @@ const Game = () => {
       }),
     );
     setError('');
-    setDisabled(false);
   };
 
   const onCheckButtonClick = () => {
-    if (clickedWords?.every((i) => !i.clicked)) {
-      return (
-        setDisabled(true), setError('Click at least one word :)')
-      );
-    } else {
-      setGameView(false);
-    }
+    clickedWords?.every((i) => !i.clicked)
+      ? setError('Click at least one word :)')
+      : setGameView(false);
 
     setClickedCorrect(
       clickedWords
@@ -96,8 +90,7 @@ const Game = () => {
         (clickedNotCorrect + notClickedCorrect),
     );
     setMaxPoints(
-      clickedCorrect === words?.good_words.length &&
-        !clickedNotCorrect,
+      clickedCorrect === words?.good_words.length && !clickedNotCorrect,
     );
   };
 
@@ -107,9 +100,7 @@ const Game = () => {
         link
         linkTo="/"
         linkText="Log out"
-        title={
-          gameView ? words.question : 'Review of ' + words.question
-        }
+        title={gameView ? words.question : 'Review of ' + words.question}
         user
       />
       <MainContainer>
@@ -132,11 +123,7 @@ const Game = () => {
         <Error error={error} />
         <ButtonWrapper>
           {gameView ? (
-            <Button
-              text="Check"
-              onClick={onCheckButtonClick}
-              disabled={disabled}
-            />
+            <Button text="Check" onClick={onCheckButtonClick} />
           ) : (
             <Button
               text="Finish game"

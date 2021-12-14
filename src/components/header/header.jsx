@@ -8,9 +8,6 @@ import { StyledHeader, Paragraph } from './styles';
 import Link from '../link';
 import Title from '../title';
 
-// TODO: Fix warning - Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-// To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-
 const Header = ({ link, linkTo, linkText, title, user }) => {
   const { userName } = useContext(UserContext);
   const { setClickedWords } = useContext(ClickedWordsContext);
