@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cypress/react": "^5.10.3",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -40,7 +41,9 @@
     ]
   },
   "devDependencies": {
+    "@cypress/webpack-dev-server": "^1.7.0",
     "@testing-library/dom": "^8.11.1",
+    "cypress": "^9.1.1",
     "jest-styled-components": "^7.0.8",
     "msw": "^0.35.0"
   }

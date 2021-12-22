@@ -5,7 +5,7 @@ import { Provider } from '../provider';
 
 const history = createBrowserHistory();
 
-export const ProvidersWraper = ({ children }) => {
+export const ProvidersWrapper = ({ children }) => {
   return (
     <Router history={history}>
       <Provider>{children}</Provider>

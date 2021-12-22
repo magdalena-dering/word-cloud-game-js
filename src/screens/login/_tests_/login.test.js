@@ -1,11 +1,11 @@
 import { fireEvent, screen, render } from '@testing-library/react';
-import { ProvidersWraper } from '../../../testUtils/renderContext';
+import { ProvidersWrapper } from '../../../testUtils/renderContext';
 import LogIn from '../login';
 
 describe('render LogIn component', () => {
   it('render heading', () => {
     const { getByRole } = render(<LogIn />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const heading = getByRole('heading', {
       name: /word cloud game/i,
@@ -15,7 +15,7 @@ describe('render LogIn component', () => {
 
   it('disable button on click when input is empty', () => {
     const { getByPlaceholderText, getByRole } = render(<LogIn />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const input = getByPlaceholderText(/nickname/i);
     const button = getByRole('button', { name: /log in/i });
@@ -26,7 +26,7 @@ describe('render LogIn component', () => {
 
   it('enable button when input is not empty', () => {
     const { getByPlaceholderText, getByRole } = render(<LogIn />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const input = getByPlaceholderText(/nickname/i);
     const button = getByRole('button', { name: /log in/i });
@@ -38,7 +38,7 @@ describe('render LogIn component', () => {
     const { getByPlaceholderText, getByRole, findByText } = render(
       <LogIn />,
       {
-        wrapper: ProvidersWraper,
+        wrapper: ProvidersWrapper,
       },
     );
     const input = getByPlaceholderText(/nickname/i);
