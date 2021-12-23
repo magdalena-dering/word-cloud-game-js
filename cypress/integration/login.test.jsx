@@ -26,7 +26,7 @@ describe('render LogIn component', () => {
     cy.get('button').should('be.disabled');
   });
 
-  it('type user name and check if button link to "game" page', () => {
+  it('type user name and check if button redirects to "game" page', () => {
     mount(
       <ProvidersWrapper>
         <LogIn />
