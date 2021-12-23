@@ -3,10 +3,19 @@ import { ProvidersWrapper } from '../../../testUtils/renderContext';
 import LogIn from '../login';
 
 describe('render LogIn component', () => {
-  it('render heading', () => {
-    const { getByRole } = render(<LogIn />, {
+  let testComponent;
+
+  beforeEach(() => {
+    testComponent = render(<LogIn />, {
       wrapper: ProvidersWrapper,
     });
+  });
+  afterEach(() => {
+    testComponent.unmount();
+  });
+
+  it('render heading', () => {
+    const { getByRole } = testComponent;
     const heading = getByRole('heading', {
       name: /word cloud game/i,
     });
@@ -14,9 +23,7 @@ describe('render LogIn component', () => {
   });
 
   it('disable button on click when input is empty', () => {
-    const { getByPlaceholderText, getByRole } = render(<LogIn />, {
-      wrapper: ProvidersWrapper,
-    });
+    const { getByPlaceholderText, getByRole } = testComponent;
     const input = getByPlaceholderText(/nickname/i);
     const button = getByRole('button', { name: /log in/i });
     fireEvent.click(button);
@@ -25,9 +32,7 @@ describe('render LogIn component', () => {
   });
 
   it('enable button when input is not empty', () => {
-    const { getByPlaceholderText, getByRole } = render(<LogIn />, {
-      wrapper: ProvidersWrapper,
-    });
+    const { getByPlaceholderText, getByRole } = testComponent;
     const input = getByPlaceholderText(/nickname/i);
     const button = getByRole('button', { name: /log in/i });
     fireEvent.change(input, { target: { value: 'Nickname' } });
@@ -35,12 +40,8 @@ describe('render LogIn component', () => {
   });
 
   it('display error when input is empty on button click', async () => {
-    const { getByPlaceholderText, getByRole, findByText } = render(
-      <LogIn />,
-      {
-        wrapper: ProvidersWrapper,
-      },
-    );
+    const { getByPlaceholderText, getByRole, findByText } =
+      testComponent;
     const input = getByPlaceholderText(/nickname/i);
     const button = getByRole('button', { name: /log in/i });
     fireEvent.change(input, { target: { value: '' } });
