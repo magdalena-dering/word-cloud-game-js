@@ -1,15 +1,6 @@
-import React from 'react';
-import { mount } from '@cypress/react';
-import LogIn from '../../src/screens/login/login';
-import { ProvidersWrapper } from '../../src/testUtils/renderContext';
-
 describe('render LogIn component', () => {
   beforeEach(() => {
-    mount(
-      <ProvidersWrapper>
-        <LogIn />
-      </ProvidersWrapper>,
-    );
+    cy.visit('/');
   });
 
   it('render heading', () => {

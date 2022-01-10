@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { Provider } from '../provider';
+import { Provider } from '../src/provider';
 
 const history = createBrowserHistory();
 
