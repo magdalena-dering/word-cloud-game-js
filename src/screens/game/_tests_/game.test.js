@@ -1,18 +1,12 @@
 import { waitFor, render, fireEvent } from '@testing-library/react';
 import 'jest-styled-components';
-import { ProvidersWraper } from '../../../testUtils/renderContext';
+import { ProvidersWrapper } from '../../../testUtils/renderContext';
 import Game from '../game';
 import Word from '../../../components/word';
 import { palette } from '../../../constants/palette';
 
 const { dimgray, lightseagreen, red } = palette;
 
-// TODO: deafult words color should be dimgray - DONE
-// TODO: disable button and display error when no word was clicked - DONE
-// TODO: check if word has green background when the right word was clicked - DONE
-// TODO: check if word has opacity green background when the right word was not clicked - DONE
-// TODO: check if word has red background when the wrong word was clicked - DONE
-// TODO: change content of button to "Finsh game" when at least one word was clicked - DONE
 
 const mockResponse = {
   question: 'select vehicles',
@@ -33,7 +27,7 @@ const mockResponse = {
 describe('render Game component', () => {
   it('render header with user name and log out link', async () => {
     const { findByTestId, getByRole } = render(<Game />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const paragraph = await findByTestId('user-name');
     const link = getByRole('link', { name: /log out/i });
@@ -42,7 +36,7 @@ describe('render Game component', () => {
   });
   it('navigate to log in screen when log out button was clicked', async () => {
     const { findByRole } = render(<Game />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const link = await findByRole('link', { name: /log out/i });
     expect(link.closest('a')).toHaveAttribute('href', '/');
@@ -55,7 +49,7 @@ describe('render Game component', () => {
 
   it('render heading', async () => {
     const { findByRole } = render(<Game />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const heading = await findByRole('heading', { level: 1 });
     expect(heading).toBeInTheDocument();
@@ -63,7 +57,7 @@ describe('render Game component', () => {
 
   it('render game container with words', async () => {
     const { findAllByTestId } = render(<Game />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const paragraphs = await findAllByTestId('word');
     paragraphs.forEach((paragraph) =>
@@ -73,7 +67,7 @@ describe('render Game component', () => {
 
   it('render enable button', async () => {
     const { findByRole } = render(<Game />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const button = await findByRole('button', { name: /check/i });
     expect(button).not.toBeDisabled();
@@ -81,7 +75,7 @@ describe('render Game component', () => {
 
   it('deafult words color should be dimgray', async () => {
     const { findAllByTestId } = render(<Game />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const paragraphs = await findAllByTestId('word');
     paragraphs.forEach((paragraph) =>
@@ -93,7 +87,7 @@ describe('render Game component', () => {
     const { findAllByTestId, findByRole, findByText } = render(
       <Game />,
       {
-        wrapper: ProvidersWraper,
+        wrapper: ProvidersWrapper,
       },
     );
     const paragraphs = await findAllByTestId('word');
@@ -110,7 +104,7 @@ describe('render Game component', () => {
 
   it('change content of button to "Finsh game" when at least one word was clicked', async () => {
     const { findAllByTestId, findByRole } = render(<Game />, {
-      wrapper: ProvidersWraper,
+      wrapper: ProvidersWrapper,
     });
     const paragraphs = await findAllByTestId('word');
     const button = await findByRole('button', { name: /check/i });
@@ -137,7 +131,7 @@ describe('render Game component', () => {
       />,
 
       {
-        wrapper: ProvidersWraper,
+        wrapper: ProvidersWrapper,
       },
     );
     expect(wrapper.getByText('train')).toHaveStyle(
@@ -158,7 +152,7 @@ describe('render Game component', () => {
       />,
 
       {
-        wrapper: ProvidersWraper,
+        wrapper: ProvidersWrapper,
       },
     );
     expect(wrapper.getByText('sofa')).toHaveStyle(
@@ -179,7 +173,7 @@ describe('render Game component', () => {
       />,
 
       {
-        wrapper: ProvidersWraper,
+        wrapper: ProvidersWrapper,
       },
     );
     expect(wrapper.getByText('train')).toHaveStyle('opacity: 0.5;');
