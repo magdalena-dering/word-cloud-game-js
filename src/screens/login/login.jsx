@@ -29,7 +29,7 @@ const LogIn = () => {
 
   return (
     <>
-      <Header title="Word Cloud Game!!!" />
+      <Header title="Word Cloud Game" />
       <MainContainer>
         <Wrapper>
           <InputWrapper>
