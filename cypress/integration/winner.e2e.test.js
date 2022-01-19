@@ -1,4 +1,4 @@
-describe('test response', () => {
+describe('test winner scenario', () => {
   it('get mocked data', () => {
     cy.intercept('GET', '**/data.json', {
       fixture: 'game.json',
