@@ -1,4 +1,4 @@
-describe('Test the app', () => {
+describe('test whole app', () => {
   it('log in', () => {
     cy.visit('/');
     cy.get('h1').contains('Word cloud game', { matchCase: false });
