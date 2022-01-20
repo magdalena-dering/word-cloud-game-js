@@ -15,12 +15,12 @@ import Loader from '../../components/loader';
 
 const Game = () => {
   const multiplying = 2;
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string>('');
   const [clickedCorrect, setClickedCorrect] = useState(0);
   const [clickedNotCorrect, setClickedNotCorrect] = useState(0);
   const [notClickedCorrect, setNotClickedCorrect] = useState(0);
-  const [gameView, setGameView] = useState(true);
-  const [disabled, setDisabled] = useState(false);
+  const [gameView, setGameView] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(false);
   const { words } = useContext(WordsContext);
   const { clickedWords } = useContext(ClickedWordsContext);
   const { setClickedWords } = useContext(ClickedWordsContext);
@@ -33,7 +33,7 @@ const Game = () => {
 
   useEffect(() => {
     setClickedWords(
-      words?.all_words?.map((word) =>
+      words?.all_words?.map((word: string) =>
         Object.assign(
           { word: word, clicked: false },
           words?.all_words[word],
@@ -42,9 +42,9 @@ const Game = () => {
     );
   }, [words?.all_words, setClickedWords]);
 
-  const onWordClick = (word) => {
+  const onWordClick = (word: string) => {
     setClickedWords(
-      clickedWords.map((i) => {
+      clickedWords.map((i: { word: string; clicked: boolean }) => {
         return i.word === word
           ? {
               ...i,
@@ -58,7 +58,9 @@ const Game = () => {
   };
 
   const onCheckButtonClick = () => {
-    if (clickedWords?.every((i) => !i.clicked)) {
+    if (
+      clickedWords?.every((i: { clicked: boolean }) => !i.clicked)
+    ) {
       return (
         setDisabled(true), setError('Click at least one word :)')
       );
@@ -68,24 +70,30 @@ const Game = () => {
 
     setClickedCorrect(
       clickedWords
-        ?.map((x) =>
-          words?.good_words?.filter((y) => y === x.word && x.clicked),
+        ?.map((x: { word: string; clicked: boolean }) =>
+          words?.good_words?.filter(
+            (y: string) => y === x.word && x.clicked,
+          ),
         )
         .flat().length,
     );
     setClickedNotCorrect(
       clickedWords
-        ?.map((x) =>
-          words?.good_words?.every((y) => y !== x.word && x.clicked),
+        ?.map((x: { word: any; clicked: any }) =>
+          words?.good_words?.every(
+            (y: any) => y !== x.word && x.clicked,
+          ),
         )
-        ?.filter((i) => i).length,
+        ?.filter((i: any) => i).length,
     );
     setNotClickedCorrect(
       clickedWords
-        ?.map((x) =>
-          words?.good_words?.some((y) => y === x.word && !x.clicked),
+        ?.map((x: { word: any; clicked: any }) =>
+          words?.good_words?.some(
+            (y: any) => y === x.word && !x.clicked,
+          ),
         )
-        ?.filter((i) => i).length,
+        ?.filter((i: any) => i).length,
     );
   };
 

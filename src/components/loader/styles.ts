@@ -15,7 +15,7 @@ export const DotWrapper = styled.div`
   top: 50%;
   left: 50%;
 `;
-export const Dot = styled.div`
+export const Dot = styled("div")<{delay: string}>`
   background-color: ${teal};
   border-radius: 50%;
   width: 1rem;

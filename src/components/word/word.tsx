@@ -1,7 +1,19 @@
-import React from "react"
-import { StyledText } from "./styles"
+import React from 'react';
+import { StyledText } from './styles';
 
-const Word = ({ gameView, clickedWords, correctWords, onWordClick }) => {
+interface IWordProps {
+  gameView: string;
+  clickedWords: string[];
+  correctWords: string[];
+  onWordClick: (word: string, index: number) => void;
+}
+
+const Word = ({
+  gameView,
+  clickedWords,
+  correctWords,
+  onWordClick,
+}: IWordProps) => {
   return (
     <>
       {clickedWords?.map((word, index) => (
@@ -10,13 +22,13 @@ const Word = ({ gameView, clickedWords, correctWords, onWordClick }) => {
           active={word.clicked}
           gameView={gameView}
           clickedCorrect={correctWords?.some(
-            item => item === word.word && word.clicked
+            (item) => item === word.word && word.clicked,
           )}
           clickedNotCorrect={correctWords?.every(
-            item => item !== word.word && word.clicked
+            (item) => item !== word.word && word.clicked,
           )}
           notClickedCorrect={correctWords?.some(
-            item => item === word.word && !word.clicked
+            (item) => item === word.word && !word.clicked,
           )}
           key={index}
           onClick={() => gameView && onWordClick(word.word, index)}
@@ -25,6 +37,6 @@ const Word = ({ gameView, clickedWords, correctWords, onWordClick }) => {
         </StyledText>
       ))}
     </>
-  )
-}
-export default Word
+  );
+};
+export default Word;

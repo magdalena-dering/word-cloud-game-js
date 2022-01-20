@@ -1,10 +1,18 @@
 import styled from "styled-components"
 import { palette } from '../../constants/palette'
+import { withProps } from '../../withProps'
 
 const { dimgray, darkslategray, lightseagreen, red } = palette
 
-export const StyledText = styled.p`
- color: ${dimgray};
+interface Props {
+  gameView?: any;
+  active?: boolean;
+  clickedCorrect?: any;
+  clickedNotCorrect?: any;
+  notClickedCorrect?: any;
+}
+export const StyledText = withProps<Props>()(styled.p)`
+  color: ${dimgray};
   font-size: 15px;
   padding: 0.5rem;
   margin: 2rem;

@@ -1,4 +1,4 @@
-import { DotWrapper, Dot } from "./styles"
+import { DotWrapper, Dot } from './styles';
 
 const Loader = () => {
   return (
@@ -7,6 +7,6 @@ const Loader = () => {
       <Dot delay=".6s" />
       <Dot delay=".4s" />
     </DotWrapper>
-  )
-}
-export default Loader
+  );
+};
+export default Loader;
