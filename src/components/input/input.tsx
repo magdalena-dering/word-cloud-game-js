@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import { StyledInput, StyledLabel } from './styles';
 import Error from '../error';
 
-interface InputProps {
+interface IInputProps {
   title: string;
   label: string;
   placeholder: string;
   value: string;
   error: string;
-  onChange: any;
+  onChange: ChangeEventHandler<HTMLInputElement>
 }
 
 const Input = ({
@@ -18,7 +18,7 @@ const Input = ({
   value,
   error,
   onChange,
-}: InputProps) => {
+}: IInputProps) => {
   return (
     <>
       <StyledLabel htmlFor={title}>{label}</StyledLabel>

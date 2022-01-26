@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import React, { useState, useContext, ChangeEvent } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../../context/userProvider';
 import { Wrapper, ButtonWrapper, InputWrapper } from './styles';
@@ -8,15 +8,16 @@ import Button from '../../components/button';
 import Header from '../../components/header';
 
 const LogIn = () => {
-  const [nickname, setNickName] = useState('');
-  const [disabled, setDisabled] = useState(false);
-  const [error, setError] = useState('');
+  const [nickname, setNickName] = useState<string>('');
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const { setUserName } = useContext(UserContext);
 
   const history = useHistory();
 
-  const onInputChange = (e) => {
-    setNickName(e?.target.value);
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setNickName(target.value);
     setDisabled(false);
     setError('');
   };

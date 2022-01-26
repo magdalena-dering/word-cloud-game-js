@@ -1,5 +1,6 @@
+import { ProvidersWrapper } from '../../../../testUtils/renderContext';
 import { fireEvent, screen, render } from '@testing-library/react';
-import { ProvidersWrapper } from '../../../testUtils/renderContext';
+// import { ProvidersWrapper } from '../../../testUtils/renderContext';
 import LogIn from '../login';
 
 describe('render LogIn component', () => {

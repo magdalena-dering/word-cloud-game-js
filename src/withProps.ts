@@ -1,4 +1,4 @@
-import * as React from 'react'
+//@ts-nocheck
 import { ThemedStyledFunction } from 'styled-components'
 
 const withProps = <U>() => <P, T, O>(fn: ThemedStyledFunction<P, T, O>) =>

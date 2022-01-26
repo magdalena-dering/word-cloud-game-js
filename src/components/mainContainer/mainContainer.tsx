@@ -1,11 +1,12 @@
+import { ReactNode } from 'react';
 import { StyledMainContainer } from './styles';
 
-interface MainContainerProps {
-  children: any;
+interface IMainContainerProps {
+  children: ReactNode;
   center?: boolean;
 }
 
-const MainContainer = ({ children, center }: MainContainerProps) => (
+const MainContainer = ({ children, center }: IMainContainerProps) => (
   <StyledMainContainer center={center}>
     {children}
   </StyledMainContainer>

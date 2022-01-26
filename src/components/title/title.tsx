@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyledTitle } from './styles';
 
-interface TitleProps {
+interface ITitleProps {
   title?: string;
 }
 
-const Title = ({ title }: TitleProps) => (
+const Title = ({ title }: ITitleProps) => (
   <StyledTitle>{title}</StyledTitle>
 );
 

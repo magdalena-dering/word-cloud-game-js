@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyledError } from './styles';
-interface ErrorProps {
+interface IErrorProps {
   error: string;
 }
-const Error = ({ error }: ErrorProps) => (
+const Error = ({ error }: IErrorProps) => (
   <StyledError>{error}</StyledError>
 );
 

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyledContainer } from './styles';
-interface GameContainerProps {
-  children: any;
+
+interface IGameContainerProps {
+  children: ReactNode;
 }
 
-const GameContainer = ({ children }: GameContainerProps) => (
+const GameContainer = ({ children }: IGameContainerProps) => (
   <StyledContainer>{children}</StyledContainer>
 );
 

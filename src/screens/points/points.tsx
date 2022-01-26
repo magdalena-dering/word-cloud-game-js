@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import useWindowSize from '../../utils/useWindowSize';
-import { UserContext } from '../../context/userProvider';
+import {  UserContext } from '../../context/userProvider';
 import { PointsContext } from '../../context/pointsProvider';
 import { MaxPointsContext } from '../../context/maxPointsProvider';
 import { Paragraph, PointsContainer } from './styles';

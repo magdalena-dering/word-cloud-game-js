@@ -1,12 +1,11 @@
 import { waitFor, render, fireEvent } from '@testing-library/react';
 import 'jest-styled-components';
-import { ProvidersWrapper } from '../../../testUtils/renderContext';
+import { ProvidersWrapper } from '../../../../testUtils/renderContext';
 import Game from '../game';
 import Word from '../../../components/word';
 import { palette } from '../../../constants/palette';
 
 const { dimgray, lightseagreen, red } = palette;
-
 
 const mockResponse = {
   question: 'select vehicles',

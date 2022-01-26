@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, {
   createContext,
   useContext,
@@ -5,10 +6,29 @@ import React, {
   useState,
 } from 'react';
 import { useFetch } from '../hooks/useFetch';
+import { IData, IProviderProps } from '../../types';
 
-export const WordsContext = createContext();
+type WordsContextState = {
+  words: null;
+  setWords: () => IData["data"],
+};
 
-export const WordsProvider = ({ children }) => {
+const contextDefaultValues: WordsContextState = {
+  words: null,
+  setWords: () => [
+    {
+      question: {},
+      all_words: [],
+      good_words: [],
+    }
+  ]
+};
+
+export const WordsContext = createContext<WordsContextState>(
+  contextDefaultValues
+);
+
+export const WordsProvider = ({ children }: IProviderProps) => {
   const [words, setWords] = useState([]);
   const { data } = useFetch('data.json');
 

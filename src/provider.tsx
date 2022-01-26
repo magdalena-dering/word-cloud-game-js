@@ -5,7 +5,11 @@ import { MaxPointsProvider } from './context/maxPointsProvider';
 import { PointsProvider } from './context/pointsProvider';
 import { ClickedWordsProvider } from './context/clickedWordsContext';
 
-export const Provider = ({ children }) => {
+interface IProviderProps {
+  children: React.ReactNode;
+}
+
+export const Provider = ({ children }: IProviderProps) => {
   return (
     <WordsProvider>
       <UserProvider>

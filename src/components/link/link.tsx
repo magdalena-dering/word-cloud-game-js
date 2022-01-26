@@ -1,17 +1,21 @@
+//@ts-nocheck
 import React from 'react';
 import { StyledLink } from './styles';
 
-interface LinkProps {
-  linkTo: string;
-  linkText?: string;
+interface ILinkProps {
+  linkTo: string | null;
+  linkText: string | null;
   onClick: () => void;
 }
 
-const Link = ({ linkTo, linkText, onClick }: LinkProps) => {
+const Link = ({ linkTo, linkText, onClick }: ILinkProps) => {
   return (
-    <StyledLink to={linkTo} onClick={onClick}>
-      {linkText}
-    </StyledLink>
+    linkText && (
+      <StyledLink to={linkTo} onClick={onClick}>
+        {linkText}
+      </StyledLink>
+    )
+
   );
 };
 

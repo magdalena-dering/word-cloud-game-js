@@ -2,10 +2,14 @@ import React from 'react';
 import { StyledText } from './styles';
 
 interface IWordProps {
-  gameView: string;
-  clickedWords: string[];
-  correctWords: string[];
-  onWordClick: (word: string, index: number) => void;
+  gameView: boolean;
+  clickedWords?: [{
+    word: {},
+    clicked: boolean;
+  }];
+  correctWords?: string[];
+  onWordClick: (word: {},
+    index: number) => {}
 }
 
 const Word = ({
@@ -22,13 +26,13 @@ const Word = ({
           active={word.clicked}
           gameView={gameView}
           clickedCorrect={correctWords?.some(
-            (item) => item === word.word && word.clicked,
+            (item: string) => item === word.word && word.clicked,
           )}
           clickedNotCorrect={correctWords?.every(
-            (item) => item !== word.word && word.clicked,
+            (item: string) => item !== word.word && word.clicked,
           )}
           notClickedCorrect={correctWords?.some(
-            (item) => item === word.word && !word.clicked,
+            (item: string) => item === word.word && !word.clicked,
           )}
           key={index}
           onClick={() => gameView && onWordClick(word.word, index)}

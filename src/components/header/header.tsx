@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/userProvider';
 import { ClickedWordsContext } from '../../context/clickedWordsContext';
@@ -11,10 +12,10 @@ import Title from '../title';
 // TODO: Fix warning - Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
 // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
 
-interface HeaderProps {
+interface IHeaderProps {
   link?: boolean;
-  linkTo: string;
-  linkText?: string;
+  linkTo?: string | null;
+  linkText?: string | null;
   title?: string;
   user?: boolean;
 }
@@ -25,7 +26,7 @@ const Header = ({
   linkText,
   title,
   user,
-}: HeaderProps) => {
+}: IHeaderProps) => {
   const { userName } = useContext(UserContext);
   const { setClickedWords } = useContext(ClickedWordsContext);
   const { setPoints } = useContext(PointsContext);

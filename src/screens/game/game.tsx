@@ -16,9 +16,9 @@ import Loader from '../../components/loader';
 const Game = () => {
   const multiplying = 2;
   const [error, setError] = useState<string>('');
-  const [clickedCorrect, setClickedCorrect] = useState(0);
-  const [clickedNotCorrect, setClickedNotCorrect] = useState(0);
-  const [notClickedCorrect, setNotClickedCorrect] = useState(0);
+  const [clickedCorrect, setClickedCorrect] = useState<number>(0);
+  const [clickedNotCorrect, setClickedNotCorrect] = useState<number>(0);
+  const [notClickedCorrect, setNotClickedCorrect] = useState<number>(0);
   const [gameView, setGameView] = useState<boolean>(true);
   const [disabled, setDisabled] = useState<boolean>(false);
   const { words } = useContext(WordsContext);
@@ -47,9 +47,9 @@ const Game = () => {
       clickedWords.map((i: { word: string; clicked: boolean }) => {
         return i.word === word
           ? {
-              ...i,
-              clicked: !i.clicked,
-            }
+            ...i,
+            clicked: !i.clicked,
+          }
           : i;
       }),
     );
@@ -79,21 +79,21 @@ const Game = () => {
     );
     setClickedNotCorrect(
       clickedWords
-        ?.map((x: { word: any; clicked: any }) =>
+        ?.map((x: { word: string; clicked: boolean }) =>
           words?.good_words?.every(
-            (y: any) => y !== x.word && x.clicked,
+            (y: string) => y !== x.word && x.clicked,
           ),
         )
-        ?.filter((i: any) => i).length,
+        ?.filter((i: string) => i).length,
     );
     setNotClickedCorrect(
       clickedWords
-        ?.map((x: { word: any; clicked: any }) =>
+        ?.map((x: { word: string; clicked: boolean }) =>
           words?.good_words?.some(
-            (y: any) => y === x.word && !x.clicked,
+            (y: string) => y === x.word && !x.clicked,
           ),
         )
-        ?.filter((i: any) => i).length,
+        ?.filter((i: string) => i).length,
     );
   };
 
@@ -101,11 +101,11 @@ const Game = () => {
     history.push('/points');
     setPoints(
       multiplying * clickedCorrect -
-        (clickedNotCorrect + notClickedCorrect),
+      (clickedNotCorrect + notClickedCorrect),
     );
     setMaxPoints(
       clickedCorrect === words?.good_words.length &&
-        !clickedNotCorrect,
+      !clickedNotCorrect,
     );
   };
 
@@ -127,13 +127,11 @@ const Game = () => {
               <Word
                 clickedWords={clickedWords}
                 gameView
-                onWordClick={onWordClick}
-              />
+                onWordClick={onWordClick} />
             ) : (
               <Word
                 clickedWords={clickedWords}
-                correctWords={words?.good_words}
-              />
+                correctWords={words?.good_words} />
             )}
           </GameContainer>
         </GameWrapper>

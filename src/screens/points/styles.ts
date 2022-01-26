@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { palette } from '../../constants/palette'
+
 const { cadetblue, teal, lightseagreen } = palette
 
 export const StyledLink = styled(Link)`
@@ -10,7 +11,7 @@ export const StyledLink = styled(Link)`
   text-transform: uppercase;
   letter-spacing: 0.025em;
 `
-export const Paragraph = styled.p`
+export const Paragraph = styled.p<{bold?: boolean}>`
   color: ${teal};
   font-size: 18px;
   ${props =>  
