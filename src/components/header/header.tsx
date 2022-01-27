@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/userProvider';
 import { ClickedWordsContext } from '../../context/clickedWordsContext';

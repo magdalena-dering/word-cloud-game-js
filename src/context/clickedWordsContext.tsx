@@ -1,14 +1,13 @@
-//@ts-nocheck
 import React, { createContext, useContext, useState } from 'react';
 import { IData, IProviderProps } from '../../types';
 
 type WordsContextState = {
-  clickedWords: null,
-  setClickedWords: () => IData["data"],
+  clickedWords: [],
+  setClickedWords: (words: IData["data"]) => IData["data"],
 };
 
 const contextDefaultValues: WordsContextState = {
-  clickedWords: null,
+  clickedWords: [],
   setClickedWords: () => [
     {
       question: {},
@@ -23,7 +22,7 @@ export const ClickedWordsContext = createContext<WordsContextState>(
 );
 
 export const ClickedWordsProvider = ({ children }: IProviderProps) => {
-  const [clickedWords, setClickedWords] = useState(null);
+  const [clickedWords, setClickedWords] = useState<IData["data"]>([]);
   return (
     <ClickedWordsContext.Provider value={{ clickedWords, setClickedWords }}>
       {children}

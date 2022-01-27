@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
 
+interface Test {
+  question: {},
+  all_words: string[],
+  good_words: string[],
+
+}
+
 export interface IData {
-  data: [
-    {
-      question: {},
-      all_words: string[],
-      good_words: string[],
-    }
-  ]
+  data: Test[]
 }
 
 export interface IProviderProps {

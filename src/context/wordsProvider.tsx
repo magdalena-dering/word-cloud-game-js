@@ -10,7 +10,7 @@ import { IData, IProviderProps } from '../../types';
 
 type WordsContextState = {
   words: null;
-  setWords: () => IData["data"],
+  setWords: (words: IData["data"]) => IData["data"],
 };
 
 const contextDefaultValues: WordsContextState = {
